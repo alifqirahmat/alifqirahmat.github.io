@@ -220,7 +220,7 @@
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
         }
 
-        /* Certificates Section */
+        /* --- CERTIFICATES SECTION MODERNISED --- */
         .cert-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -234,12 +234,13 @@
             padding: 25px;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
             transition: all 0.3s ease;
+            cursor: pointer;
         }
 
         .cert-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-            border-color: #cbd5e0;
+            border-color: #3182ce;
         }
 
         .cert-card h3 {
@@ -249,6 +250,100 @@
 
         .cert-card p {
             color: #718096;
+        }
+
+        /* --- MODAL POP-UP SERTIFIKAT --- */
+        .cert-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(26, 32, 44, 0.8);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        .cert-modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: #ffffff;
+            max-width: 700px;
+            width: 90%;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transform: scale(0.9);
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            position: relative;
+        }
+
+        .cert-modal.show .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 35px;
+            height: 35px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #ffffff;
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background 0.2s;
+            z-index: 10;
+        }
+
+        .modal-close:hover {
+            background-color: #e53e3e;
+        }
+
+        .modal-img {
+            width: 100%;
+            display: block;
+            height: auto;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .modal-info {
+            padding: 25px;
+            background-color: #ffffff;
+        }
+
+        .modal-info h3 {
+            font-size: 22px;
+            color: #1a202c;
+            margin-bottom: 5px;
+        }
+
+        .modal-info .publisher {
+            color: #3182ce;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .modal-info .desc {
+            color: #4a5568;
+            font-size: 15px;
         }
 
         /* Skills Section */
@@ -410,7 +505,7 @@
 <body class="loading">
 
     <div id="preloader">
-        <div class="loader-title">Portfolio Alifqi</div>
+        <div class="loader-title">Portofolio Alifqi</div>
     </div>
 
     <div class="main-content">
@@ -446,17 +541,17 @@
             <div class="section-container">
                 <h2>Sertifikat</h2>
                 <div class="cert-grid">
-                    <div class="cert-card">
-                        <h3>Nama Sertifikat 1</h3>
-                        <p>Penerbit: Google / Dicoding / dll</p>
-                        <p style="color: #a0aec0; font-size: 14px; margin-top: 5px;">Tahun Terbit: 2026</p>
+                    <div class="cert-card" data-title="Webinar Level Up Series" data-publisher="Agate Academy" data-year="2025" data-img="image_dffd68.jpg" data-desc="Berpartisipasi dalam webinar Level Up Series yang diselenggarakan oleh Agate Academy bekerja sama dengan Kemendikdasmen, membahas industri pengembangan game.">
+                        <h3>Webinar Level Up Series</h3>
+                        <p>Penerbit: Agate Academy</p>
+                        <p style="color: #a0aec0; font-size: 14px; margin-top: 5px;">Tahun Terbit: 2025</p>
                     </div>
-                    <div class="cert-card">
+                    <div class="cert-card" data-title="Nama Sertifikat 2" data-publisher="Lembaga Kursus" data-year="2025" data-img="placeholder2.jpg" data-desc="Deskripsi singkat mengenai kompetensi yang didapatkan dari sertifikat kedua ini.">
                         <h3>Nama Sertifikat 2</h3>
                         <p>Penerbit: Lembaga Kursus</p>
                         <p style="color: #a0aec0; font-size: 14px; margin-top: 5px;">Tahun Terbit: 2025</p>
                     </div>
-                    <div class="cert-card">
+                    <div class="cert-card" data-title="Nama Sertifikat 3" data-publisher="Universitas / Instansi" data-year="2025" data-img="placeholder3.jpg" data-desc="Deskripsi singkat mengenai kompetensi yang didapatkan dari sertifikat ketiga ini.">
                         <h3>Nama Sertifikat 3</h3>
                         <p>Penerbit: Universitas / Instansi</p>
                         <p style="color: #a0aec0; font-size: 14px; margin-top: 5px;">Tahun Terbit: 2025</p>
@@ -464,6 +559,18 @@
                 </div>
             </div>
         </section>
+
+        <div id="certModal" class="cert-modal">
+            <div class="modal-content">
+                <button class="modal-close" id="closeModal">&times;</button>
+                <img src="" alt="Sertifikat" id="modalImg" class="modal-img">
+                <div class="modal-info">
+                    <p id="modalPublisher" class="publisher"></p>
+                    <h3 id="modalTitle"></h3>
+                    <p id="modalDesc" class="desc"></p>
+                </div>
+            </div>
+        </div>
 
         <section id="skills">
             <div class="section-container">
@@ -537,6 +644,52 @@
                 document.body.classList.add('ready');
                 document.body.classList.remove('loading');
             }, 2800); 
+        });
+
+        // --- INTERAKSI MODAL POP-UP SERTIFIKAT ---
+        const modal = document.getElementById('certModal');
+        const closeModal = document.getElementById('closeModal');
+        const certCards = document.querySelectorAll('.cert-card');
+        
+        const modalImg = document.getElementById('modalImg');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalPublisher = document.getElementById('modalPublisher');
+        const modalDesc = document.getElementById('modalDesc');
+
+        certCards.forEach(card => {
+            card.addEventListener('click', () => {
+                // Mengambil data dari atribut card yang di-klik
+                const title = card.getAttribute('data-title');
+                const publisher = card.getAttribute('data-publisher');
+                const year = card.getAttribute('data-year');
+                const img = card.getAttribute('data-img');
+                const desc = card.getAttribute('data-desc');
+
+                // Memasukkan data ke dalam modal
+                modalImg.src = img;
+                modalImg.alt = title;
+                modalPublisher.textContent = `${publisher} • ${year}`;
+                modalTitle.textContent = title;
+                modalDesc.textContent = desc;
+
+                // Memunculkan modal
+                modal.classList.add('show');
+                document.body.style.overflow = 'hidden'; // Kunci scroll latar belakang
+            });
+        });
+
+        // Tutup modal lewat tombol X
+        closeModal.addEventListener('click', () => {
+            modal.classList.remove('show');
+            document.body.style.overflow = '';
+        });
+
+        // Tutup modal jika area luar gambar di-klik
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('show');
+                document.body.style.overflow = '';
+            }
         });
 
         // --- SKILL SECTION INTERACTION ---

@@ -20,7 +20,7 @@
             overflow: hidden; /* Dikunci agar tidak bisa di-scroll saat loading */
         }
 
-        /* Preloader Putih dengan Animasi Teks */
+        /* Preloader Putih Premium dengan Efek Interaktif */
         #preloader {
             position: fixed;
             top: 0;
@@ -32,34 +32,56 @@
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.8s;
         }
 
-        /* Animasi Text Muncul dari Bawah & Meregang Ringan */
+        /* Container untuk Teks Utama dan Kursor Ketik */
+        .preloader-wrapper {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Animasi Text Ketik + Efek Kilau Gradasi Warna */
         .preloader-title {
-            color: #1a202c;
-            font-size: 32px;
-            font-weight: bold;
+            font-size: 36px;
+            font-weight: 800;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 0;
             letter-spacing: 1px;
-            animation: textReveal 1.2s ease-out forwards;
-            opacity: 0;
+            background: linear-gradient(90deg, #1a202c, #3182ce, #1a202c);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: 
+                typeText 1.6s steps(18) 0.2s forwards,
+                shimmerEffect 3s linear infinite;
         }
 
-        @keyframes textReveal {
-            0% {
-                opacity: 0;
-                transform: translateY(20px);
-                letter-spacing: -1px;
-            }
-            60% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-                letter-spacing: 2px; /* Efek merenggang halus di akhir */
-            }
+        /* Animasi Kursor Ketik yang Berkedip */
+        .typing-cursor {
+            width: 4px;
+            height: 40px;
+            background-color: #3182ce;
+            margin-left: 4px;
+            animation: blinkCursor 0.6s step-end infinite;
+        }
+
+        /* Keyframes untuk Mengetik */
+        @keyframes typeText {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        /* Keyframes untuk Kursor Berkedip */
+        @keyframes blinkCursor {
+            from, to { background-color: transparent; }
+            50% { background-color: #3182ce; }
+        }
+
+        /* Keyframes untuk Efek Kilau Warna Reflektif */
+        @keyframes shimmerEffect {
+            to { background-position: 200% center; }
         }
 
         /* Navbar */
@@ -353,12 +375,13 @@
 </head>
 <body>
 
-    <!-- Preloader Section Terbaru -->
     <div id="preloader">
-        <div class="preloader-title">Portofolio Alifqi</div>
+        <div class="preloader-wrapper">
+            <div class="preloader-title">Portofolio Alifqi</div>
+            <div class="typing-cursor"></div>
+        </div>
     </div>
 
-    <!-- Header / Navbar -->
     <header>
         <nav>
             <div class="logo">Portofolio Alifqi.</div>
@@ -372,15 +395,14 @@
         </nav>
     </header>
 
-    <!-- Home Section -->
     <section id="home">
         <div class="section-container home-content">
             <div class="home-text">
                 <h1>Halo, Saya Alifqi</h1>
-                <p>Saya seorang siswa TKJ dari SMK Wikrama Bogor[cite: 1] yang adaptif dan siap kerja. 
+                <p>Saya seorang siswa TKJ dari SMK Wikrama Bogor yang adaptif dan siap kerja. 
                     Melalui pembelajaran yang intensif di sekolah, saya telah dibekali kemampuan dasar dalam merancang,
-                    membangun, dan mengelola infrastruktur jaringan komputer[cite: 1]. 
-                    Saya mencari peluang untuk mempraktikkan keahlian ini di dunia industri[cite: 1].</p>
+                    membangun, dan mengelola infrastruktur jaringan komputer. 
+                    Saya mencari peluang untuk mempraktikkan keahlian ini di dunia industri.</p>
             </div>
             <div class="home-img">
                 <img src="alifqinametag.jpg" alt="Foto Alifqi">
@@ -388,31 +410,29 @@
         </div>
     </section>
 
-    <!-- Certificates Section -->
     <section id="certificates">
         <div class="section-container">
             <h2>Sertifikat</h2>
             <div class="cert-grid">
                 <div class="cert-card">
                     <h3>Cybersecurity Essentials</h3>
-                    <p>Penerbit: Cisco Networking Academy[cite: 1]</p>
-                    <p style="color: #a0aec0; font-size: 14px; margin-top: 5px;">Tahun Terbit: 2026[cite: 1]</p>
+                    <p>Penerbit: Cisco Networking Academy</p>
+                    <p style="color: #a0aec0; font-size: 14px; margin-top: 5px;">Tahun Terbit: 2026</p>
                 </div>
                 <div class="cert-card">
                     <h3>Introduction to Cybersecurity</h3>
-                    <p>Penerbit: Cisco Networking Academy[cite: 1]</p>
-                    <p style="color: #a0aec0; font-size: 14px; margin-top: 5px;">Tahun Terbit: 2025[cite: 1]</p>
+                    <p>Penerbit: Cisco Networking Academy</p>
+                    <p style="color: #a0aec0; font-size: 14px; margin-top: 5px;">Tahun Terbit: 2025</p>
                 </div>
                 <div class="cert-card">
                     <h3>Network & Linux Fundamental</h3>
-                    <p>Penerbit: Aguna Course[cite: 1]</p>
-                    <p style="color: #a0aec0; font-size: 14px; margin-top: 5px;">Tahun Terbit: 2025[cite: 1]</p>
+                    <p>Penerbit: Aguna Course</p>
+                    <p style="color: #a0aec0; font-size: 14px; margin-top: 5px;">Tahun Terbit: 2025</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Skills Section -->
     <section id="skills">
         <div class="section-container">
             <h2>Skil Kemampuan</h2>
@@ -427,38 +447,36 @@
         </div>
     </section>
 
-    <!-- Project Section -->
     <section id="projects">
         <div class="section-container">
             <h2>Project</h2>
             <div class="project-grid">
                 <div class="project-card">
                     <h3>Infrastruktur Jaringan Enterprise (ASAT 2026)</h3>
-                    <p>Merancang topologi jaringan enterprise lokal, konfigurasi VLAN, inter-VLAN routing, dan melakukan manajemen bandwidth menggunakan MikroTik RouterOS[cite: 1].</p>
+                    <p>Merancang topologi jaringan enterprise lokal, konfigurasi VLAN, inter-VLAN routing, dan melakukan manajemen bandwidth menggunakan MikroTik RouterOS.</p>
                     <span class="project-tag">MikroTik RouterOS</span>
                 </div>
                 <div class="project-card">
                     <h3>Deployment Web Server & Basis Data</h3>
-                    <p>Melakukan deployment dan konfigurasi web server berbasis Nginx dan Apache, serta mengintegrasikan database MariaDB di lingkungan Linux CLI (Debian/Ubuntu)[cite: 1].</p>
+                    <p>Melakukan deployment dan konfigurasi web server berbasis Nginx dan Apache, serta mengintegrasikan database MariaDB di lingkungan Linux CLI (Debian/Ubuntu).</p>
                     <span class="project-tag">Linux Server & DB</span>
                 </div>
                 <div class="project-card">
                     <h3>Keamanan Jaringan & Cloud Eksplorasi</h3>
-                    <p>Menerapkan system hardening dengan UFW Firewall (NAT) serta sukses melakukan mendeploy instance server virtual pada layanan AWS EC2[cite: 1].</p>
+                    <p>Menerapkan system hardening dengan UFW Firewall (NAT) serta sukses melakukan mendeploy instance server virtual pada layanan AWS EC2.</p>
                     <span class="project-tag">AWS Cloud & Security</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
     <section id="contact">
         <div class="section-container">
             <h2>Hubungi Saya</h2>
             <div class="contact-container">
                 <div class="contact-info">
                     <h3>Kontak Informasi</h3>
-                    <p><strong>No. HP:</strong> +62 857 1901 7124[cite: 1]</p>
+                    <p><strong>No. HP:</strong> +62 857 1901 7124</p>
                     <p><strong>Email:</strong> alifqirahamat@gmail.com</p>
                     <p><strong>Alamat:</strong> Bogor, Cigombong Villa Mutiara Lido</p>
                     <p>Silakan hubungi saya melalui kontak di atas atau isi form di samping untuk mengirim pesan langsung ke email saya.</p>
@@ -477,14 +495,14 @@
     </section>
 
     <script>
-        // Logika Hilangnya Preloader Selesai Animasi Teks & Load Web
+        // Logika Transisi Penutupan Preloader (Durasi Diperlama & Halus)
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
             setTimeout(() => {
                 preloader.style.opacity = '0';
                 preloader.style.visibility = 'hidden';
                 document.body.style.overflow = 'auto'; // Aktifkan scroll kembali
-            }, 1400); // Waktu disesuaikan agar animasi teks selesai dulu baru hilang
+            }, 2500); // Durasi loading total diubah menjadi 2.5 detik agar efek mengetik terlihat sempurna
         });
 
         // Logika Interaktif Deskripsi Skil

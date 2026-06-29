@@ -20,7 +20,7 @@
             overflow: hidden; /* Dikunci agar tidak bisa di-scroll saat loading */
         }
 
-        /* Preloader Putih Premium dengan Efek Interaktif */
+        /* Preloader Eksklusif Baru */
         #preloader {
             position: fixed;
             top: 0;
@@ -32,56 +32,48 @@
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.8s;
+            transition: opacity 1s cubic-bezier(0.25, 1, 0.5, 1), visibility 1s;
         }
 
-        /* Container untuk Teks Utama dan Kursor Ketik */
+        /* Wrapper dengan Animasi Membesar Lembut */
         .preloader-wrapper {
-            display: flex;
-            align-items: center;
+            text-align: center;
+            animation: scaleContainer 3s cubic-bezier(0.1, 0.8, 0.2, 1) forwards;
         }
 
-        /* Animasi Text Ketik + Efek Kilau Gradasi Warna */
+        /* Text Muncul dari Bawah, Memudar, dan Meregang Jelas */
         .preloader-title {
-            font-size: 36px;
+            color: #000000; /* Warna hitam pekat */
+            font-size: 42px;
             font-weight: 800;
-            white-space: nowrap;
-            overflow: hidden;
-            width: 0;
-            letter-spacing: 1px;
-            background: linear-gradient(90deg, #1a202c, #3182ce, #1a202c);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: 
-                typeText 1.6s steps(18) 0.2s forwards,
-                shimmerEffect 3s linear infinite;
+            letter-spacing: 2px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: sophisticatedReveal 2.2s cubic-bezier(0.2, 0.6, 0.2, 1) 0.2s forwards;
         }
 
-        /* Animasi Kursor Ketik yang Berkedip */
-        .typing-cursor {
-            width: 4px;
-            height: 40px;
-            background-color: #3182ce;
-            margin-left: 4px;
-            animation: blinkCursor 0.6s step-end infinite;
+        /* Keyframes Perbesaran Kontainer */
+        @keyframes scaleContainer {
+            0% { transform: scale(0.95); }
+            100% { transform: scale(1.03); }
         }
 
-        /* Keyframes untuk Mengetik */
-        @keyframes typeText {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-
-        /* Keyframes untuk Kursor Berkedip */
-        @keyframes blinkCursor {
-            from, to { background-color: transparent; }
-            50% { background-color: #3182ce; }
-        }
-
-        /* Keyframes untuk Efek Kilau Warna Reflektif */
-        @keyframes shimmerEffect {
-            to { background-position: 200% center; }
+        /* Keyframes Efek Teks Muncul Modern */
+        @keyframes sophisticatedReveal {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+                letter-spacing: -2px;
+            }
+            40% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+                letter-spacing: 4px; /* Meregang elegan di akhir */
+            }
         }
 
         /* Navbar */
@@ -378,7 +370,6 @@
     <div id="preloader">
         <div class="preloader-wrapper">
             <div class="preloader-title">Portofolio Alifqi</div>
-            <div class="typing-cursor"></div>
         </div>
     </div>
 
@@ -495,14 +486,14 @@
     </section>
 
     <script>
-        // Logika Transisi Penutupan Preloader (Durasi Diperlama & Halus)
+        // Logika Durasi Penutupan Preloader (3 Detik agar transisi mulus dan dramatis)
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
             setTimeout(() => {
                 preloader.style.opacity = '0';
                 preloader.style.visibility = 'hidden';
-                document.body.style.overflow = 'auto'; // Aktifkan scroll kembali
-            }, 2500); // Durasi loading total diubah menjadi 2.5 detik agar efek mengetik terlihat sempurna
+                document.body.style.overflow = 'auto'; 
+            }, 3000); 
         });
 
         // Logika Interaktif Deskripsi Skil

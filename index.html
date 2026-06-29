@@ -1,6 +1,3 @@
-html web porto
-
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -18,8 +15,53 @@ html web porto
 
         body {
             background-color: #ffffff;
-            color: #2d3748; /* Warna teks abu-abu gelap agar lebih lembut dibanding hitam pekat */
+            color: #2d3748; 
             line-height: 1.6;
+            overflow: hidden; /* Dikunci sementara agar tidak bisa di-scroll saat preloader aktif */
+        }
+
+        /* Preloader Styles */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: #1a202c;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .preloader-title {
+            color: #ffffff;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            animation: pulse 1.5s infinite ease-in-out;
+        }
+
+        .loader-ring {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-top: 4px solid #3182ce;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         /* Navbar */
@@ -65,7 +107,7 @@ html web porto
         }
 
         .nav-links a:hover {
-            color: #3182ce; /* Aksen warna biru lembut saat hover */
+            color: #3182ce; 
         }
 
         /* Section Base */
@@ -84,11 +126,12 @@ html web porto
             margin: 0 auto;
         }
 
-        /* Variasi Background Section Selang-seling agar tidak monoton */
+        /* Variasi Background Section Selang-seling */
         #home { background-color: #ffffff; }
         #certificates { background-color: #f7fafc; border-top: 1px solid #edf2f7; border-bottom: 1px solid #edf2f7; }
         #skills { background-color: #ffffff; }
-        #contact { background-color: #f7fafc; border-top: 1px solid #edf2f7; }
+        #projects { background-color: #f7fafc; border-top: 1px solid #edf2f7; border-bottom: 1px solid #edf2f7; }
+        #contact { background-color: #ffffff; }
 
         h2 {
             font-size: 32px;
@@ -103,7 +146,7 @@ html web porto
             display: block;
             width: 50px;
             height: 3px;
-            background-color: #3182ce; /* Garis bawah aksen biru */
+            background-color: #3182ce; 
             margin: 10px auto 0 auto;
             border-radius: 2px;
         }
@@ -147,14 +190,14 @@ html web porto
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
         }
 
-        /* Certificates Section */
-        .cert-grid {
+        /* Certificates & Projects Grid */
+        .cert-grid, .project-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
         }
 
-        .cert-card {
+        .cert-card, .project-card {
             background: #ffffff;
             border: 1px solid #e2e8f0;
             border-radius: 12px;
@@ -163,19 +206,30 @@ html web porto
             transition: all 0.3s ease;
         }
 
-        .cert-card:hover {
+        .cert-card:hover, .project-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
             border-color: #cbd5e0;
         }
 
-        .cert-card h3 {
+        .cert-card h3, .project-card h3 {
             margin-bottom: 10px;
             color: #2d3748;
         }
 
-        .cert-card p {
+        .cert-card p, .project-card p {
             color: #718096;
+        }
+
+        .project-tag {
+            display: inline-block;
+            background-color: #ebf8ff;
+            color: #2b6cb0;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin-top: 15px;
         }
 
         /* Skills Section */
@@ -195,7 +249,7 @@ html web porto
             font-size: 16px;
             border: 1px solid #e2e8f0;
             transition: all 0.2s;
-            cursor: pointer; /* Menandakan bisa diklik */
+            cursor: pointer; 
         }
 
         .skill-badge:hover {
@@ -204,7 +258,6 @@ html web porto
             border-color: #3182ce;
         }
 
-        /* Gaya Pop-up Kustom untuk Pengertian Skil */
         .skill-desc-box {
             max-width: 600px;
             margin: 30px auto 0 auto;
@@ -212,7 +265,7 @@ html web porto
             background-color: #ebf8ff;
             border-left: 5px solid #3182ce;
             border-radius: 8px;
-            display: none; /* Sembunyi secara default */
+            display: none; 
             text-align: center;
             animation: fadeIn 0.4s ease;
         }
@@ -302,6 +355,11 @@ html web porto
 </head>
 <body>
 
+    <div id="preloader">
+        <div class="preloader-title">Portofolio Alifqi</div>
+        <div class="loader-ring"></div>
+    </div>
+
     <header>
         <nav>
             <div class="logo">Portofolio Alifqi.</div>
@@ -309,6 +367,7 @@ html web porto
                 <li><a href="#home">Home</a></li>
                 <li><a href="#certificates">Sertifikat</a></li>
                 <li><a href="#skills">Skil</a></li>
+                <li><a href="#projects">Project</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
@@ -333,32 +392,28 @@ html web porto
         <div class="section-container">
             <h2>Sertifikat</h2>
             <div class="cert-grid">
-                
                 <div class="cert-card">
-                    <h3>Nama Sertifikat 1</h3>
-                    <p>Penerbit: Google / Dicoding / dll</p>
+                    <h3>Cybersecurity Essentials</h3>
+                    <p>Penerbit: Cisco Networking Academy</p>
                     <p style="color: #a0aec0; font-size: 14px; margin-top: 5px;">Tahun Terbit: 2026</p>
                 </div>
-
                 <div class="cert-card">
-                    <h3>Nama Sertifikat 2</h3>
-                    <p>Penerbit: Lembaga Kursus</p>
+                    <h3>Introduction to Cybersecurity</h3>
+                    <p>Penerbit: Cisco Networking Academy</p>
                     <p style="color: #a0aec0; font-size: 14px; margin-top: 5px;">Tahun Terbit: 2025</p>
                 </div>
-
                 <div class="cert-card">
-                    <h3>Nama Sertifikat 3</h3>
-                    <p>Penerbit: Universitas / Instansi</p>
+                    <h3>Network & Linux Fundamental</h3>
+                    <p>Penerbit: Aguna Course</p>
                     <p style="color: #a0aec0; font-size: 14px; margin-top: 5px;">Tahun Terbit: 2025</p>
                 </div>
-
             </div>
         </div>
     </section>
 
     <section id="skills">
         <div class="section-container">
-            <h2>Skil Kemampuan</h2>
+            <h2>Skil Kemappan</h2>
             <div class="skills-container">
                 <div class="skill-badge">Konfigurasi Linux</div>
                 <div class="skill-badge">Konfigurasi Mikrotik</div>
@@ -366,8 +421,30 @@ html web porto
                 <div class="skill-badge">AWS Server</div>
                 <div class="skill-badge">Instalasi Kabel Jaringan (Cabling)</div>
             </div>
-            
             <div id="skill-desc" class="skill-desc-box"></div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="section-container">
+            <h2>Project</h2>
+            <div class="project-grid">
+                <div class="project-card">
+                    <h3>Infrastruktur Jaringan Enterprise (ASAT 2026)</h3>
+                    <p>Merancang topologi jaringan enterprise lokal, konfigurasi VLAN, inter-VLAN routing, dan melakukan manajemen bandwidth menggunakan MikroTik RouterOS.</p>
+                    <span class="project-tag">MikroTik RouterOS</span>
+                </div>
+                <div class="project-card">
+                    <h3>Deployment Web Server & Basis Data</h3>
+                    <p>Melakukan deployment dan konfigurasi web server berbasis Nginx dan Apache, serta mengintegrasikan database MariaDB di lingkungan Linux CLI (Debian/Ubuntu).</p>
+                    <span class="project-tag">Linux Server & DB</span>
+                </div>
+                <div class="project-card">
+                    <h3>Keamanan Jaringan & Cloud Eksplorasi</h3>
+                    <p>Menerapkan system hardening dengan UFW Firewall (NAT) serta sukses melakukan mendeploy instance server virtual pada layanan AWS EC2.</p>
+                    <span class="project-tag">AWS Cloud & Security</span>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -375,7 +452,6 @@ html web porto
         <div class="section-container">
             <h2>Hubungi Saya</h2>
             <div class="contact-container">
-                
                 <div class="contact-info">
                     <h3>Kontak Informasi</h3>
                     <p><strong>No. HP:</strong> +62 857 1901 7124</p>
@@ -383,7 +459,6 @@ html web porto
                     <p><strong>Alamat:</strong> Bogor, Cigombong Villa Mutiara Lido</p>
                     <p>Silakan hubungi saya melalui kontak di atas atau isi form di samping untuk mengirim pesan langsung ke email saya.</p>
                 </div>
-
                 <div class="contact-form">
                     <form action="https://formsubmit.co/alifqirahamat@gmail.com" method="POST">
                         <input type="hidden" name="_next" value="https://formsubmit.co/thanks">
@@ -393,16 +468,26 @@ html web porto
                         <button type="submit">Kirim Pesan</button>
                     </form>
                 </div>
-
             </div>
         </div>
     </section>
 
     <script>
+        // Preloader Logic
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            setTimeout(() => {
+                preloader.style.opacity = '0';
+                preloader.style.visibility = 'hidden';
+                document.body.style.overflow = 'auto'; // Mengembalikan scroll setelah loading selesai
+            }, 1000); // Tampil selama 1 detik agar transisi terasa halus
+        });
+
+        // Skills Description Logic
         const infoSkil = {
             "Konfigurasi Linux": "Kemampuan mengoperasikan OS Linux, manajemen user, hak akses, serta instalasi dan konfigurasi layanan server berbasis open-source.",
             "Konfigurasi Mikrotik": "Keahlian mengatur routerboard Mikrotik untuk keperluan routing, switching, bandwidth management (antrean), firewall, dan hotspot.",
-            "Desain Grafis": "Kemampuan merancang visual kreatif seperti layout, logo, banner, dan aset media digital menggunakan tools standar industri.",
+            "Desain Grafis": "Kemampuan merancang visual kreativ seperti layout, logo, banner, dan aset media digital menggunakan tools standar industri.",
             "AWS Server": "Keahlian dasar cloud computing untuk mendeploy, mengelola, dan mengonfigurasi virtual server (EC2) serta penyimpanan di infrastruktur Amazon Web Services.",
             "Instalasi Kabel Jaringan (Cabling)": "Keterampilan fisik dalam melakukan crimping kabel UTP (Straight/Cross), instalasi kabel terstruktur, serta pengujian konektivitas menggunakan LAN tester."
         };

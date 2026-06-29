@@ -17,51 +17,57 @@
             background-color: #ffffff;
             color: #2d3748; 
             line-height: 1.6;
-            overflow: hidden; /* Dikunci sementara agar tidak bisa di-scroll saat preloader aktif */
+            overflow: hidden; /* Dikunci agar tidak bisa di-scroll saat loading */
         }
 
-        /* Preloader Styles */
+        /* Preloader Baru (Putih Minimalis) */
         #preloader {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100vh;
-            background-color: #1a202c;
+            background-color: #ffffff;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
         }
 
         .preloader-title {
-            color: #ffffff;
-            font-size: 28px;
+            color: #1a202c;
+            font-size: 26px;
             font-weight: bold;
-            margin-bottom: 20px;
-            letter-spacing: 1px;
-            animation: pulse 1.5s infinite ease-in-out;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
         }
 
-        .loader-ring {
+        .loader-bar {
+            width: 120px;
+            height: 3px;
+            background-color: #edf2f7;
+            position: relative;
+            overflow: hidden;
+            border-radius: 2px;
+        }
+
+        .loader-bar::after {
+            content: '';
+            display: block;
             width: 40px;
-            height: 40px;
-            border: 4px solid rgba(255, 255, 255, 0.1);
-            border-top: 4px solid #3182ce;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
+            height: 100%;
+            background-color: #3182ce;
+            position: absolute;
+            left: -40px;
+            animation: loadingSlide 1.2s infinite ease-in-out;
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 0.6; }
-            50% { opacity: 1; }
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        @keyframes loadingSlide {
+            0% { left: -40px; }
+            50% { width: 60px; }
+            100% { left: 120px; }
         }
 
         /* Navbar */
@@ -126,7 +132,7 @@
             margin: 0 auto;
         }
 
-        /* Variasi Background Section Selang-seling */
+        /* Background Selang-seling */
         #home { background-color: #ffffff; }
         #certificates { background-color: #f7fafc; border-top: 1px solid #edf2f7; border-bottom: 1px solid #edf2f7; }
         #skills { background-color: #ffffff; }
@@ -151,7 +157,7 @@
             border-radius: 2px;
         }
 
-        /* Home Section */
+        /* Home */
         .home-content {
             display: flex;
             flex-direction: row;
@@ -190,7 +196,7 @@
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
         }
 
-        /* Certificates & Projects Grid */
+        /* Grids */
         .cert-grid, .project-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -232,7 +238,7 @@
             margin-top: 15px;
         }
 
-        /* Skills Section */
+        /* Skills */
         .skills-container {
             display: flex;
             flex-wrap: wrap;
@@ -275,7 +281,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Contact Section */
+        /* Contact */
         .contact-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -357,7 +363,7 @@
 
     <div id="preloader">
         <div class="preloader-title">Portofolio Alifqi</div>
-        <div class="loader-ring"></div>
+        <div class="loader-bar"></div>
     </div>
 
     <header>
@@ -413,7 +419,7 @@
 
     <section id="skills">
         <div class="section-container">
-            <h2>Skil Kemappan</h2>
+            <h2>Skil Kemampuan</h2>
             <div class="skills-container">
                 <div class="skill-badge">Konfigurasi Linux</div>
                 <div class="skill-badge">Konfigurasi Mikrotik</div>
@@ -473,21 +479,21 @@
     </section>
 
     <script>
-        // Preloader Logic
+        // Logika Preloader Halaman
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
             setTimeout(() => {
                 preloader.style.opacity = '0';
                 preloader.style.visibility = 'hidden';
-                document.body.style.overflow = 'auto'; // Mengembalikan scroll setelah loading selesai
-            }, 1000); // Tampil selama 1 detik agar transisi terasa halus
+                document.body.style.overflow = 'auto'; // Aktifkan scroll kembali
+            }, 1000); 
         });
 
-        // Skills Description Logic
+        // Logika Interaktif Deskripsi Skil
         const infoSkil = {
             "Konfigurasi Linux": "Kemampuan mengoperasikan OS Linux, manajemen user, hak akses, serta instalasi dan konfigurasi layanan server berbasis open-source.",
             "Konfigurasi Mikrotik": "Keahlian mengatur routerboard Mikrotik untuk keperluan routing, switching, bandwidth management (antrean), firewall, dan hotspot.",
-            "Desain Grafis": "Kemampuan merancang visual kreativ seperti layout, logo, banner, dan aset media digital menggunakan tools standar industri.",
+            "Desain Grafis": "Kemampuan merancang visual kreatif seperti layout, logo, banner, dan aset media digital menggunakan tools standar industri.",
             "AWS Server": "Keahlian dasar cloud computing untuk mendeploy, mengelola, dan mengonfigurasi virtual server (EC2) serta penyimpanan di infrastruktur Amazon Web Services.",
             "Instalasi Kabel Jaringan (Cabling)": "Keterampilan fisik dalam melakukan crimping kabel UTP (Straight/Cross), instalasi kabel terstruktur, serta pengujian konektivitas menggunakan LAN tester."
         };

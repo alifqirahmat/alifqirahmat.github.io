@@ -295,14 +295,47 @@
         }
 
         .contact-info h3 {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             color: #1a202c;
         }
 
-        .contact-info p {
-            margin-bottom: 15px;
+        /* Style khusus untuk list sosial media agar rapi berjajar ke bawah */
+        .contact-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 25px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
             font-size: 16px;
+            color: #2d3748;
+        }
+
+        .contact-item strong {
+            min-width: 85px; /* Menjaga label teks agar sejajar lurus vertikal */
             color: #4a5568;
+        }
+
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #2b6cb0;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .contact-link:hover {
+            color: #3182ce;
+        }
+
+        .contact-link svg {
+            flex-shrink: 0;
         }
 
         .contact-form form {
@@ -467,11 +500,62 @@
             <div class="contact-container">
                 <div class="contact-info">
                     <h3>Kontak Informasi</h3>
-                    <p><strong>No. HP:</strong> +62 857 1901 7124</p>
-                    <p><strong>Email:</strong> alifqirahamat@gmail.com</p>
-                    <p><strong>Alamat:</strong> Bogor, Cigombong Villa Mutiara Lido</p>
+                    
+                    <div class="contact-list">
+                        <!-- WhatsApp Link & Icon -->
+                        <div class="contact-item">
+                            <strong>WhatsApp:</strong>
+                            <a href="https://wa.me/6285719017124" target="_blank" class="contact-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#25D366">
+                                    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.717-1.454L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.42 9.863-9.855.001-2.633-1.02-5.107-2.875-6.963C16.649 1.975 14.184 1.954 11.55 1.954c-5.437 0-9.862 4.419-9.865 9.854-.002 1.761.473 3.42 1.374 4.908l-1.002 3.657 3.755-.985zm11.413-5.176c-.328-.164-1.94-.957-2.242-1.068-.302-.11-.522-.164-.742.164-.22.329-.85.85-.1.043.149-.074.408-.233.483-.414.075-.18.075-.343.037-.408-.037-.065-.22-.329-.302-.522-.11-.264-.225-.227-.308-.227h-.264c-.183 0-.482.068-.733.343-.251.274-.958.936-.958 2.281 0 1.345.98 2.645 1.116 2.828.137.183 1.928 2.945 4.671 4.129.652.282 1.162.451 1.558.577.656.208 1.253.179 1.725.108.527-.078 1.616-.661 1.843-1.298.226-.637.226-1.183.157-1.297-.069-.115-.251-.179-.579-.343z"/>
+                                </svg>
+                                +62 857 1901 7124
+                            </a>
+                        </div>
+
+                        <!-- Email Link & Icon -->
+                        <div class="contact-item">
+                            <strong>Email:</strong>
+                            <a href="mailto:alifqirahamat@gmail.com" class="contact-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#ea4335">
+                                    <path d="M12 12.713l-11.985-7.926c.03-.173.084-.34.163-.495l11.822 7.818 11.822-7.818c.079.155.133.322.163.495l-11.985 7.926zm12-5.713v12c0 2.209-1.791 4-4 4h-16c-2.209 0-4-1.791-4-4v-12c0-.525.102-1.026.287-1.486l11.713 7.748 11.713-7.748c.185.46.287.961.287 1.486z"/>
+                                </svg>
+                                alifqirahamat@gmail.com
+                            </a>
+                        </div>
+
+                        <!-- Instagram Link & Icon -->
+                        <div class="contact-item">
+                            <strong>Instagram:</strong>
+                            <a href="https://www.instagram.com/all3avy/" target="_blank" class="contact-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#e1306c">
+                                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                                </svg>
+                                @all3avy
+                            </a>
+                        </div>
+
+                        <!-- LinkedIn Link & Icon -->
+                        <div class="contact-item">
+                            <strong>LinkedIn:</strong>
+                            <a href="https://www.linkedin.com/in/alifqi-rahmat-hermawansyah-1b050594b/" target="_blank" class="contact-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#0a66c2">
+                                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                                </svg>
+                                Alifqi Rahmat Hermawansyah
+                            </a>
+                        </div>
+
+                        <!-- Alamat Tetap Rapi Biasa -->
+                        <div class="contact-item" style="margin-top: 4px;">
+                            <strong>Alamat:</strong>
+                            <span style="font-size: 15px; color: #4a5568;">Bogor, Cigombong Villa Mutiara Lido</span>
+                        </div>
+                    </div>
+
                     <p>Silakan hubungi saya melalui kontak di atas atau isi form di samping untuk mengirim pesan langsung ke email saya.</p>
                 </div>
+                
                 <div class="contact-form">
                     <form action="https://formsubmit.co/alifqirahamat@gmail.com" method="POST">
                         <input type="hidden" name="_next" value="https://formsubmit.co/thanks">

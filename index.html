@@ -292,7 +292,7 @@
             color: #cbd5e0;
         }
 
-        /* Skills Interaktif Lebih Smooth */
+        /* Skills Interaktif Full Smooth */
         .skills-container {
             display: flex;
             flex-wrap: wrap;
@@ -328,7 +328,7 @@
             height: 0;
             opacity: 0;
             overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: height 0.35s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.35s ease, padding 0.35s ease;
         }
 
         .skill-desc-box.open {
@@ -339,6 +339,14 @@
 
         .skill-desc-content {
             text-align: center;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .skill-desc-content.fade-in {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* Project Grid */
@@ -485,7 +493,7 @@
         </div>
     </div>
 
-    <!-- Modal Pop-up Box untuk Preview Gambar Sertifikat -->
+    <!-- Modal Pop-up Box Preview Gambar Sertifikat -->
     <div id="certModal" class="modal">
         <span class="close-modal" onclick="closeModal()">&times;</span>
         <img class="modal-content" id="imgModalTarget">
@@ -547,7 +555,6 @@
                     </div>
                     <button class="view-cert-btn" onclick="openModal('sertif3.jpg')">Lihat Sertifikat</button>
                 </div>
-                <!-- Menambahkan File Sertifikat Ke-4 Sesuai Folder Anda -->
                 <div class="cert-card">
                     <div>
                         <h3>Sertifikat Kompetensi Keahlian</h3>
@@ -696,29 +703,39 @@
             "Instalasi Kabel Jaringan (Cabling)": "Keterampilan fisik dalam melakukan crimping kabel UTP (Straight/Cross), instalasi kabel terstruktur, serta pengujian konektivitas menggunakan LAN tester."
         };
 
-        // Fungsi Transisi Smooth Skil Kemampuan
+        // Fungsi Transisi Selalu Smooth saat klik Skil apa saja (Cross-Fade Fix)
         function showSkill(element, namaSkil) {
             const descBox = document.getElementById('skill-desc');
-            const descText = document.getElementById('skill-desc-text');
+            const descContent = document.getElementById('skill-desc-text');
             const badges = document.querySelectorAll('.skill-badge');
 
-            // Hapus kelas aktif dari semua badge
-            badges.forEach(b => b.classList.remove('active'));
-
-            if (descBox.classList.contains('open') && descText.dataset.current === namaSkil) {
-                // Jika lencana yang sama diklik ulang, tutup kotak secara smooth
+            // Jika mengklik tombol yang sudah aktif, tutup kotak deskripsi
+            if (element.classList.contains('active')) {
+                element.classList.remove('active');
+                descContent.classList.remove('fade-in');
                 descBox.classList.remove('open');
-                descText.dataset.current = "";
+                return;
+            }
+
+            // Ganti status aktif tombol
+            badges.forEach(b => b.classList.remove('active'));
+            element.classList.add('active');
+
+            // Jika kotak sudah terbuka, hilangkan teks dulu baru ganti isinya (Smooth Transition)
+            if (descBox.classList.contains('open')) {
+                descContent.classList.remove('fade-in');
+                
+                setTimeout(() => {
+                    descContent.innerHTML = `<strong>${namaSkil}:</strong> <br> ${infoSkil[namaSkil]}`;
+                    descContent.classList.add('fade-in');
+                }, 250); // Waktu jeda menghilang sebelum memunculkan teks baru
             } else {
-                // Tambah efek aktif ke lencana yang dipilih
-                element.classList.add('active');
-                
-                // Ubah konten secara cepat saat kotak transisi
-                descText.innerHTML = `<strong>${namaSkil}:</strong> <br> ${infoSkil[namaSkil]}`;
-                descText.dataset.current = namaSkil;
-                
-                // Buka kotak dengan transisi tinggi dan opasitas CSS
+                // Jika baru pertama kali dibuka
+                descContent.innerHTML = `<strong>${namaSkil}:</strong> <br> ${infoSkil[namaSkil]}`;
                 descBox.classList.add('open');
+                setTimeout(() => {
+                    descContent.classList.add('fade-in');
+                }, 50);
             }
         }
     </script>

@@ -17,10 +17,10 @@
             background-color: #ffffff;
             color: #2d3748; 
             line-height: 1.6;
-            overflow: hidden; /* Dikunci agar tidak bisa di-scroll saat loading */
+            overflow: hidden;
         }
 
-        /* Preloader Eksklusif Baru */
+        /* Preloader */
         #preloader {
             position: fixed;
             top: 0;
@@ -35,15 +35,13 @@
             transition: opacity 1s cubic-bezier(0.25, 1, 0.5, 1), visibility 1s;
         }
 
-        /* Wrapper dengan Animasi Membesar Lembut */
         .preloader-wrapper {
             text-align: center;
             animation: scaleContainer 3s cubic-bezier(0.1, 0.8, 0.2, 1) forwards;
         }
 
-        /* Text Muncul dari Bawah, Memudar, dan Meregang Jelas */
         .preloader-title {
-            color: #000000; /* Warna hitam pekat */
+            color: #000000;
             font-size: 42px;
             font-weight: 800;
             letter-spacing: 2px;
@@ -52,28 +50,15 @@
             animation: sophisticatedReveal 2.2s cubic-bezier(0.2, 0.6, 0.2, 1) 0.2s forwards;
         }
 
-        /* Keyframes Perbesaran Kontainer */
         @keyframes scaleContainer {
             0% { transform: scale(0.95); }
             100% { transform: scale(1.03); }
         }
 
-        /* Keyframes Efek Teks Muncul Modern */
         @keyframes sophisticatedReveal {
-            0% {
-                opacity: 0;
-                transform: translateY(30px);
-                letter-spacing: -2px;
-            }
-            40% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-                letter-spacing: 4px; /* Meregang elegan di akhir */
-            }
+            0% { opacity: 0; transform: translateY(30px); letter-spacing: -2px; }
+            40% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 1; transform: translateY(0); letter-spacing: 4px; }
         }
 
         /* Navbar */
@@ -202,49 +187,112 @@
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
         }
 
-        /* Grids */
-        .cert-grid, .project-grid {
+        /* Certificates Grid */
+        .cert-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
         }
 
-        .cert-card, .project-card {
+        .cert-card {
             background: #ffffff;
             border: 1px solid #e2e8f0;
             border-radius: 12px;
             padding: 25px;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
             transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
-        .cert-card:hover, .project-card:hover {
+        .cert-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
             border-color: #cbd5e0;
         }
 
-        .cert-card h3, .project-card h3 {
+        .cert-card h3 {
             margin-bottom: 10px;
             color: #2d3748;
+            font-size: 18px;
         }
 
-        .cert-card p, .project-card p {
+        .cert-card p {
             color: #718096;
+            font-size: 15px;
         }
 
-        .project-tag {
+        .view-cert-btn {
             display: inline-block;
+            margin-top: 15px;
+            padding: 8px 14px;
             background-color: #ebf8ff;
             color: #2b6cb0;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 600;
-            padding: 4px 10px;
-            border-radius: 4px;
-            margin-top: 15px;
+            text-align: center;
+            border-radius: 6px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s ease;
         }
 
-        /* Skills */
+        .view-cert-btn:hover {
+            background-color: #3182ce;
+            color: #ffffff;
+        }
+
+        /* Modal / Pop-up Gambar Sertifikat */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            max-width: 85%;
+            max-height: 85vh;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal.show .modal-content {
+            transform: scale(1);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .close-modal:hover {
+            color: #cbd5e0;
+        }
+
+        /* Skills Interaktif Lebih Smooth */
         .skills-container {
             display: flex;
             flex-wrap: wrap;
@@ -260,31 +308,79 @@
             font-weight: 500;
             font-size: 16px;
             border: 1px solid #e2e8f0;
-            transition: all 0.2s;
+            transition: all 0.2s ease;
             cursor: pointer; 
         }
 
-        .skill-badge:hover {
+        .skill-badge:hover, .skill-badge.active {
             background-color: #3182ce;
             color: #ffffff;
             border-color: #3182ce;
         }
 
         .skill-desc-box {
-            max-width: 600px;
+            max-width: 650px;
             margin: 30px auto 0 auto;
-            padding: 20px;
+            padding: 0;
             background-color: #ebf8ff;
             border-left: 5px solid #3182ce;
             border-radius: 8px;
-            display: none; 
-            text-align: center;
-            animation: fadeIn 0.4s ease;
+            height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+        .skill-desc-box.open {
+            padding: 20px;
+            height: auto;
+            opacity: 1;
+        }
+
+        .skill-desc-content {
+            text-align: center;
+        }
+
+        /* Project Grid */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+            border-color: #cbd5e0;
+        }
+
+        .project-card h3 {
+            margin-bottom: 10px;
+            color: #2d3748;
+        }
+
+        .project-card p {
+            color: #718096;
+        }
+
+        .project-tag {
+            display: inline-block;
+            background-color: #ebf8ff;
+            color: #2b6cb0;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin-top: 15px;
         }
 
         /* Contact */
@@ -299,7 +395,6 @@
             color: #1a202c;
         }
 
-        /* Style khusus untuk list sosial media agar rapi berjajar ke bawah */
         .contact-list {
             display: flex;
             flex-direction: column;
@@ -316,7 +411,7 @@
         }
 
         .contact-item strong {
-            min-width: 85px; /* Menjaga label teks agar sejajar lurus vertikal */
+            min-width: 85px; 
             color: #4a5568;
         }
 
@@ -332,10 +427,6 @@
 
         .contact-link:hover {
             color: #3182ce;
-        }
-
-        .contact-link svg {
-            flex-shrink: 0;
         }
 
         .contact-form form {
@@ -378,23 +469,11 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            .home-content {
-                flex-direction: column-reverse;
-                text-align: center;
-            }
-            .contact-container {
-                grid-template-columns: 1fr;
-            }
-            nav {
-                flex-direction: column;
-                gap: 15px;
-            }
-            .nav-links li {
-                margin: 0 10px;
-            }
-            section {
-                padding: 100px 20px 60px 20px;
-            }
+            .home-content { flex-direction: column-reverse; text-align: center; }
+            .contact-container { grid-template-columns: 1fr; }
+            nav { flex-direction: column; gap: 15px; }
+            .nav-links li { margin: 0 10px; }
+            section { padding: 100px 20px 60px 20px; }
         }
     </style>
 </head>
@@ -404,6 +483,12 @@
         <div class="preloader-wrapper">
             <div class="preloader-title">Portofolio Alifqi</div>
         </div>
+    </div>
+
+    <!-- Modal Pop-up Box untuk Preview Gambar Sertifikat -->
+    <div id="certModal" class="modal">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="imgModalTarget">
     </div>
 
     <header>
@@ -439,19 +524,37 @@
             <h2>Sertifikat</h2>
             <div class="cert-grid">
                 <div class="cert-card">
-                    <h3>Cybersecurity Essentials</h3>
-                    <p>Penerbit: Cisco Networking Academy</p>
-                    <p style="color: #a0aec0; font-size: 14px; margin-top: 5px;">Tahun Terbit: 2026</p>
+                    <div>
+                        <h3>Cybersecurity Essentials</h3>
+                        <p>Penerbit: Cisco Networking Academy</p>
+                        <p style="color: #a0aec0; font-size: 14px; margin-top: 5px;">Tahun Terbit: 2026</p>
+                    </div>
+                    <button class="view-cert-btn" onclick="openModal('sertif1.jpg')">Lihat Sertifikat</button>
                 </div>
                 <div class="cert-card">
-                    <h3>Introduction to Cybersecurity</h3>
-                    <p>Penerbit: Cisco Networking Academy</p>
-                    <p style="color: #a0aec0; font-size: 14px; margin-top: 5px;">Tahun Terbit: 2025</p>
+                    <div>
+                        <h3>Introduction to Cybersecurity</h3>
+                        <p>Penerbit: Cisco Networking Academy</p>
+                        <p style="color: #a0aec0; font-size: 14px; margin-top: 5px;">Tahun Terbit: 2025</p>
+                    </div>
+                    <button class="view-cert-btn" onclick="openModal('sertif2.jpg')">Lihat Sertifikat</button>
                 </div>
                 <div class="cert-card">
-                    <h3>Network & Linux Fundamental</h3>
-                    <p>Penerbit: Aguna Course</p>
-                    <p style="color: #a0aec0; font-size: 14px; margin-top: 5px;">Tahun Terbit: 2025</p>
+                    <div>
+                        <h3>Network & Linux Fundamental</h3>
+                        <p>Penerbit: Aguna Course</p>
+                        <p style="color: #a0aec0; font-size: 14px; margin-top: 5px;">Tahun Terbit: 2025</p>
+                    </div>
+                    <button class="view-cert-btn" onclick="openModal('sertif3.jpg')">Lihat Sertifikat</button>
+                </div>
+                <!-- Menambahkan File Sertifikat Ke-4 Sesuai Folder Anda -->
+                <div class="cert-card">
+                    <div>
+                        <h3>Sertifikat Kompetensi Keahlian</h3>
+                        <p>Penerbit: SMK Wikrama Bogor</p>
+                        <p style="color: #a0aec0; font-size: 14px; margin-top: 5px;">Tahun Terbit: 2026</p>
+                    </div>
+                    <button class="view-cert-btn" onclick="openModal('sertif4.jpg')">Lihat Sertifikat</button>
                 </div>
             </div>
         </div>
@@ -461,13 +564,15 @@
         <div class="section-container">
             <h2>Skil Kemampuan</h2>
             <div class="skills-container">
-                <div class="skill-badge">Konfigurasi Linux</div>
-                <div class="skill-badge">Konfigurasi Mikrotik</div>
-                <div class="skill-badge">Desain Grafis</div>
-                <div class="skill-badge">AWS Server</div>
-                <div class="skill-badge">Instalasi Kabel Jaringan (Cabling)</div>
+                <div class="skill-badge" onclick="showSkill(this, 'Konfigurasi Linux')">Konfigurasi Linux</div>
+                <div class="skill-badge" onclick="showSkill(this, 'Konfigurasi Mikrotik')">Konfigurasi Mikrotik</div>
+                <div class="skill-badge" onclick="showSkill(this, 'Desain Grafis')">Desain Grafis</div>
+                <div class="skill-badge" onclick="showSkill(this, 'AWS Server')">AWS Server</div>
+                <div class="skill-badge" onclick="showSkill(this, 'Instalasi Kabel Jaringan (Cabling)')">Instalasi Kabel Jaringan (Cabling)</div>
             </div>
-            <div id="skill-desc" class="skill-desc-box"></div>
+            <div id="skill-desc" class="skill-desc-box">
+                <div class="skill-desc-content" id="skill-desc-text"></div>
+            </div>
         </div>
     </section>
 
@@ -500,59 +605,40 @@
             <div class="contact-container">
                 <div class="contact-info">
                     <h3>Kontak Informasi</h3>
-                    
                     <div class="contact-list">
-                        <!-- WhatsApp Link & Icon -->
                         <div class="contact-item">
                             <strong>WhatsApp:</strong>
                             <a href="https://wa.me/6285719017124" target="_blank" class="contact-link">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#25D366">
-                                    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.717-1.454L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.42 9.863-9.855.001-2.633-1.02-5.107-2.875-6.963C16.649 1.975 14.184 1.954 11.55 1.954c-5.437 0-9.862 4.419-9.865 9.854-.002 1.761.473 3.42 1.374 4.908l-1.002 3.657 3.755-.985zm11.413-5.176c-.328-.164-1.94-.957-2.242-1.068-.302-.11-.522-.164-.742.164-.22.329-.85.85-.1.043.149-.074.408-.233.483-.414.075-.18.075-.343.037-.408-.037-.065-.22-.329-.302-.522-.11-.264-.225-.227-.308-.227h-.264c-.183 0-.482.068-.733.343-.251.274-.958.936-.958 2.281 0 1.345.98 2.645 1.116 2.828.137.183 1.928 2.945 4.671 4.129.652.282 1.162.451 1.558.577.656.208 1.253.179 1.725.108.527-.078 1.616-.661 1.843-1.298.226-.637.226-1.183.157-1.297-.069-.115-.251-.179-.579-.343z"/>
-                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#25D366"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.717-1.454L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.42 9.863-9.855.001-2.633-1.02-5.107-2.875-6.963C16.649 1.975 14.184 1.954 11.55 1.954c-5.437 0-9.862 4.419-9.865 9.854-.002 1.761.473 3.42 1.374 4.908l-1.002 3.657 3.755-.985zm11.413-5.176c-.328-.164-1.94-.957-2.242-1.068-.302-.11-.522-.164-.742.164-.22.329-.85.85-.1.043.149-.074.408-.233.483-.414.075-.18.075-.343.037-.408-.037-.065-.22-.329-.302-.522-.11-.264-.225-.227-.308-.227h-.264c-.183 0-.482.068-.733.343-.251.274-.958.936-.958 2.281 0 1.345.98 2.645 1.116 2.828.137.183 1.928 2.945 4.671 4.129.652.282 1.162.451 1.558.577.656.208 1.253.179 1.725.108.527-.078 1.616-.661 1.843-1.298.226-.637.226-1.183.157-1.297-.069-.115-.251-.179-.579-.343z"/></svg>
                                 +62 857 1901 7124
                             </a>
                         </div>
-
-                        <!-- Email Link & Icon -->
                         <div class="contact-item">
                             <strong>Email:</strong>
                             <a href="mailto:alifqirahamat@gmail.com" class="contact-link">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#ea4335">
-                                    <path d="M12 12.713l-11.985-7.926c.03-.173.084-.34.163-.495l11.822 7.818 11.822-7.818c.079.155.133.322.163.495l-11.985 7.926zm12-5.713v12c0 2.209-1.791 4-4 4h-16c-2.209 0-4-1.791-4-4v-12c0-.525.102-1.026.287-1.486l11.713 7.748 11.713-7.748c.185.46.287.961.287 1.486z"/>
-                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#ea4335"><path d="M12 12.713l-11.985-7.926c.03-.173.084-.34.163-.495l11.822 7.818 11.822-7.818c.079.155.133.322.163.495l-11.985 7.926zm12-5.713v12c0 2.209-1.791 4-4 4h-16c-2.209 0-4-1.791-4-4v-12c0-.525.102-1.026.287-1.486l11.713 7.748 11.713-7.748c.185.46.287.961.287 1.486z"/></svg>
                                 alifqirahamat@gmail.com
                             </a>
                         </div>
-
-                        <!-- Instagram Link & Icon -->
                         <div class="contact-item">
                             <strong>Instagram:</strong>
                             <a href="https://www.instagram.com/all3avy/" target="_blank" class="contact-link">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#e1306c">
-                                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#e1306c"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                                 @all3avy
                             </a>
                         </div>
-
-                        <!-- LinkedIn Link & Icon -->
                         <div class="contact-item">
                             <strong>LinkedIn:</strong>
                             <a href="https://www.linkedin.com/in/alifqi-rahmat-hermawansyah-1b050594b/" target="_blank" class="contact-link">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#0a66c2">
-                                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#0a66c2"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                                 Alifqi Rahmat Hermawansyah
                             </a>
                         </div>
-
-                        <!-- Alamat Tetap Rapi Biasa -->
                         <div class="contact-item" style="margin-top: 4px;">
                             <strong>Alamat:</strong>
                             <span style="font-size: 15px; color: #4a5568;">Bogor, Cigombong Villa Mutiara Lido</span>
                         </div>
                     </div>
-
                     <p>Silakan hubungi saya melalui kontak di atas atau isi form di samping untuk mengirim pesan langsung ke email saya.</p>
                 </div>
                 
@@ -570,7 +656,7 @@
     </section>
 
     <script>
-        // Logika Durasi Penutupan Preloader (3 Detik agar transisi mulus dan dramatis)
+        // Preloader 3 Detik
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
             setTimeout(() => {
@@ -580,7 +666,28 @@
             }, 3000); 
         });
 
-        // Logika Interaktif Deskripsi Skil
+        // Fungsi Membuka Pop-up Gambar Sertifikat
+        function openModal(imgSrc) {
+            const modal = document.getElementById('certModal');
+            const modalImg = document.getElementById('imgModalTarget');
+            modalImg.src = imgSrc;
+            modal.classList.add('show');
+        }
+
+        // Fungsi Menutup Pop-up Gambar Sertifikat
+        function closeModal() {
+            const modal = document.getElementById('certModal');
+            modal.classList.remove('show');
+        }
+
+        // Menutup pop-up ketika area luar gambar diklik
+        document.getElementById('certModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Data Deskripsi Skil Kemampuan
         const infoSkil = {
             "Konfigurasi Linux": "Kemampuan mengoperasikan OS Linux, manajemen user, hak akses, serta instalasi dan konfigurasi layanan server berbasis open-source.",
             "Konfigurasi Mikrotik": "Keahlian mengatur routerboard Mikrotik untuk keperluan routing, switching, bandwidth management (antrean), firewall, dan hotspot.",
@@ -589,16 +696,31 @@
             "Instalasi Kabel Jaringan (Cabling)": "Keterampilan fisik dalam melakukan crimping kabel UTP (Straight/Cross), instalasi kabel terstruktur, serta pengujian konektivitas menggunakan LAN tester."
         };
 
-        const badges = document.querySelectorAll('.skill-badge');
-        const descBox = document.getElementById('skill-desc');
+        // Fungsi Transisi Smooth Skil Kemampuan
+        function showSkill(element, namaSkil) {
+            const descBox = document.getElementById('skill-desc');
+            const descText = document.getElementById('skill-desc-text');
+            const badges = document.querySelectorAll('.skill-badge');
 
-        badges.forEach(badge => {
-            badge.addEventListener('click', () => {
-                const namaSkil = badge.textContent.trim();
-                descBox.innerHTML = `<strong>${namaSkil}:</strong> <br> ${infoSkil[namaSkil]}`;
-                descBox.style.display = 'block';
-            });
-        });
+            // Hapus kelas aktif dari semua badge
+            badges.forEach(b => b.classList.remove('active'));
+
+            if (descBox.classList.contains('open') && descText.dataset.current === namaSkil) {
+                // Jika lencana yang sama diklik ulang, tutup kotak secara smooth
+                descBox.classList.remove('open');
+                descText.dataset.current = "";
+            } else {
+                // Tambah efek aktif ke lencana yang dipilih
+                element.classList.add('active');
+                
+                // Ubah konten secara cepat saat kotak transisi
+                descText.innerHTML = `<strong>${namaSkil}:</strong> <br> ${infoSkil[namaSkil]}`;
+                descText.dataset.current = namaSkil;
+                
+                // Buka kotak dengan transisi tinggi dan opasitas CSS
+                descBox.classList.add('open');
+            }
+        }
     </script>
 
 </body>

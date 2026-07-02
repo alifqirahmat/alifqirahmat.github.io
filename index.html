@@ -181,6 +181,9 @@
             text-decoration: none;
             font-weight: 600;
             border-radius: 8px;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
             transition: background-color 0.2s ease;
         }
 
@@ -258,7 +261,7 @@
             color: #ffffff;
         }
 
-        /* Modal / Pop-up Gambar Sertifikat */
+        /* Modals (Sertifikat & CV) */
         .modal {
             display: none;
             position: fixed;
@@ -288,7 +291,19 @@
             transition: transform 0.3s ease;
         }
 
-        .modal.show .modal-content {
+        /* Khusus modal CV agar pas dengan ukuran dokumen */
+        .modal-cv-content {
+            width: 80%;
+            height: 85vh;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal.show .modal-content,
+        .modal.show .modal-cv-content {
             transform: scale(1);
         }
 
@@ -300,6 +315,7 @@
             font-size: 40px;
             font-weight: bold;
             cursor: pointer;
+            z-index: 2001;
             transition: color 0.2s;
         }
 
@@ -307,7 +323,7 @@
             color: #cbd5e0;
         }
 
-        /* Skills Interaktif Full Smooth */
+        /* Skills Interaktif */
         .skills-container {
             display: flex;
             flex-wrap: wrap;
@@ -497,6 +513,7 @@
             nav { flex-direction: column; gap: 15px; }
             .nav-links li { margin: 0 10px; }
             section { padding: 100px 20px 60px 20px; }
+            .modal-cv-content { width: 95%; height: 80vh; }
         }
     </style>
 </head>
@@ -508,10 +525,16 @@
         </div>
     </div>
 
-    <!-- Modal Pop-up Box Preview Gambar Sertifikat -->
+    <!-- Modal Gambar Sertifikat -->
     <div id="certModal" class="modal">
-        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <span class="close-modal" onclick="closeModal('certModal')">&times;</span>
         <img class="modal-content" id="imgModalTarget">
+    </div>
+
+    <!-- Modal PDF CV -->
+    <div id="cvModal" class="modal">
+        <span class="close-modal" onclick="closeModal('cvModal')">&times;</span>
+        <iframe class="modal-cv-content" id="pdfModalTarget"></iframe>
     </div>
 
     <header>
@@ -535,7 +558,8 @@
                     Melalui pembelajaran yang intensif di sekolah, saya telah dibekali kemampuan dasar dalam merancang,
                     membangun, dan mengelola infrastruktur jaringan komputer. 
                     Saya mencari peluang untuk mempraktikkan keahlian ini di dunia industri.</p>
-                <a href="CV_Alifqi Rahmat Hermawansyah (1).docx" class="btn-cv" download>Unduh CV</a>
+                <!-- Tombol diubah menjadi View CV dengan fungsi Modal -->
+                <button onclick="openCvModal('CV_Alifqi Rahmat.pdf')" class="btn-cv">View CV</button>
             </div>
             <div class="home-img">
                 <img src="alifqinametag.jpg" alt="Foto Alifqi">
@@ -553,7 +577,7 @@
                         <p>Penerbit: Cisco Networking Academy</p>
                         <p style="color: #a0aec0; font-size: 14px; margin-top: 5px;">Tahun Terbit: 2026</p>
                     </div>
-                    <button class="view-cert-btn" onclick="openModal('sertif1.jpg')">Lihat Sertifikat</button>
+                    <button class="view-cert-btn" onclick="openCertModal('sertif1.jpg')">Lihat Sertifikat</button>
                 </div>
                 <div class="cert-card">
                     <div>
@@ -561,7 +585,7 @@
                         <p>Penerbit: Cisco Networking Academy</p>
                         <p style="color: #a0aec0; font-size: 14px; margin-top: 5px;">Tahun Terbit: 2025</p>
                     </div>
-                    <button class="view-cert-btn" onclick="openModal('sertif2.jpg')">Lihat Sertifikat</button>
+                    <button class="view-cert-btn" onclick="openCertModal('sertif2.jpg')">Lihat Sertifikat</button>
                 </div>
                 <div class="cert-card">
                     <div>
@@ -569,7 +593,7 @@
                         <p>Penerbit: Aguna Course</p>
                         <p style="color: #a0aec0; font-size: 14px; margin-top: 5px;">Tahun Terbit: 2025</p>
                     </div>
-                    <button class="view-cert-btn" onclick="openModal('sertif3.jpg')">Lihat Sertifikat</button>
+                    <button class="view-cert-btn" onclick="openCertModal('sertif3.jpg')">Lihat Sertifikat</button>
                 </div>
                 <div class="cert-card">
                     <div>
@@ -577,7 +601,7 @@
                         <p>Penerbit: SMK Wikrama Bogor</p>
                         <p style="color: #a0aec0; font-size: 14px; margin-top: 5px;">Tahun Terbit: 2026</p>
                     </div>
-                    <button class="view-cert-btn" onclick="openModal('sertif4.jpg')">Lihat Sertifikat</button>
+                    <button class="view-cert-btn" onclick="openCertModal('sertif4.jpg')">Lihat Sertifikat</button>
                 </div>
             </div>
         </div>
@@ -605,7 +629,7 @@
             <div class="project-grid">
                 <div class="project-card">
                     <h3>Infrastruktur Jaringan Enterprise (ASAT 2026)</h3>
-                    <p>Merancang topologi jaringan enterprise lokal, konfigurasi VLAN, inter-VLAN routing, dan melakukan manajemen bandwidth menggunakan MikroTik RouterOS.</p>
+                    <p>Merancang topologi jaringan enterprise lokal, konfigurasi VLAN, inter-VLAN routing, and melakukan manajemen bandwidth menggunakan MikroTik RouterOS.</p>
                     <span class="project-tag">MikroTik RouterOS</span>
                 </div>
                 <div class="project-card">
@@ -670,7 +694,7 @@
                     </div>
                     <p>Silakan hubungi saya melalui kontak di atas atau isi form di samping untuk mengirim pesan langsung ke email saya.</p>
                 </div>
-                
+                 
                 <div class="contact-form">
                     <form action="https://formsubmit.co/alifqirahamat@gmail.com" method="POST">
                         <input type="hidden" name="_next" value="https://formsubmit.co/thanks">
@@ -695,24 +719,37 @@
             }, 3000); 
         });
 
-        // Fungsi Membuka Pop-up Gambar Sertifikat
-        function openModal(imgSrc) {
+        // Fungsi Membuka Modal Sertifikat (Gambar)
+        function openCertModal(imgSrc) {
             const modal = document.getElementById('certModal');
             const modalImg = document.getElementById('imgModalTarget');
             modalImg.src = imgSrc;
             modal.classList.add('show');
         }
 
-        // Fungsi Menutup Pop-up Gambar Sertifikat
-        function closeModal() {
-            const modal = document.getElementById('certModal');
-            modal.classList.remove('show');
+        // Fungsi Membuka Modal CV (PDF)
+        function openCvModal(pdfSrc) {
+            const modal = document.getElementById('cvModal');
+            const modalPdf = document.getElementById('pdfModalTarget');
+            modalPdf.src = pdfSrc;
+            modal.classList.add('show');
         }
 
-        // Menutup pop-up ketika area luar gambar diklik
-        document.getElementById('certModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
+        // Fungsi Menutup Modal secara Spesifik
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('show');
+            
+            // Jika yang ditutup modal CV, kosongkan src agar PDF berhenti dimuat di background
+            if(modalId === 'cvModal') {
+                document.getElementById('pdfModalTarget').src = '';
+            }
+        }
+
+        // Menutup pop-up ketika area luar diklik
+        window.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal')) {
+                closeModal(e.target.id);
             }
         });
 
@@ -731,7 +768,6 @@
             const descContent = document.getElementById('skill-desc-text');
             const badges = document.querySelectorAll('.skill-badge');
 
-            // Jika mengklik tombol yang sudah aktif, tutup kotak deskripsi
             if (element.classList.contains('active')) {
                 element.classList.remove('active');
                 descContent.classList.remove('fade-in');
@@ -739,20 +775,17 @@
                 return;
             }
 
-            // Ganti status aktif tombol
             badges.forEach(b => b.classList.remove('active'));
             element.classList.add('active');
 
-            // Jika kotak sudah terbuka, hilangkan teks dulu baru ganti isinya (Smooth Transition)
             if (descBox.classList.contains('open')) {
                 descContent.classList.remove('fade-in');
-                
+                 
                 setTimeout(() => {
                     descContent.innerHTML = `<strong>${namaSkil}:</strong> <br> ${infoSkil[namaSkil]}`;
                     descContent.classList.add('fade-in');
-                }, 250); // Waktu jeda menghilang sebelum memunculkan teks baru
+                }, 250); 
             } else {
-                // Jika baru pertama kali dibuka
                 descContent.innerHTML = `<strong>${namaSkil}:</strong> <br> ${infoSkil[namaSkil]}`;
                 descBox.classList.add('open');
                 setTimeout(() => {
